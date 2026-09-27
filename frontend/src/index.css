@@ -1,0 +1,424 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-dark: #f8fafc;
+  --bg-gradient: radial-gradient(circle at top left, #ffffff, #f1f5f9);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+  --accent-primary: #2563eb;
+  --accent-secondary: #7c3aed;
+  --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  
+  --positive: #059669;
+  --negative: #dc2626;
+  --bg-default: #ffffff;
+  --bg-card: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-dark);
+  background-image: var(--bg-gradient);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Glassmorphism Card Utility */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.5rem;
+  box-shadow: var(--glass-shadow);
+  padding: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* Typography */
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
+}
+
+/* Upload Area */
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--glass-border);
+  border-radius: 1rem;
+  padding: 3rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(241, 245, 249, 0.7);
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-container:hover, .upload-container.drag-active {
+  border-color: var(--accent-primary);
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.upload-icon {
+  width: 64px;
+  height: 64px;
+  color: var(--accent-primary);
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.upload-container:hover .upload-icon {
+  transform: scale(1.1);
+}
+
+.upload-button {
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.upload-button:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.upload-button:disabled {
+  background: var(--glass-border);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.file-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.file-chip {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Metrics Dashboard */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.metric-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 0.5rem;
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.metric-label {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.metric-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.positive {
+  color: var(--positive);
+}
+
+.negative {
+  color: var(--negative);
+}
+
+/* Charts */
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.chart-wrapper {
+  height: 400px;
+  width: 100%;
+}
+
+/* Loaders */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--glass-border);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Optimizer Component */
+.optimizer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .optimizer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.optimizer-inputs h3, .optimizer-results h3 {
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.investment-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.currency-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.currency-input-wrapper input {
+  padding-left: 2rem !important;
+}
+
+input[type="number"] {
+  background: rgba(241, 245, 249, 0.7);
+  border: 1px solid var(--glass-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+.slider-group {
+  margin-bottom: 1.5rem;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.slider-header span {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  cursor: pointer;
+  margin-top: -8px;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: var(--glass-border);
+  border-radius: 2px;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+.empty-results {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px dashed var(--glass-border);
+  border-radius: 1rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+/* Table Styles */
+.metrics-table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 2rem;
+}
+
+.metrics-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.metrics-table th {
+  padding: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom: 2px solid var(--glass-border);
+  white-space: nowrap;
+}
+
+.metrics-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.metrics-table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
